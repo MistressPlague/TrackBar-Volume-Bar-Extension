@@ -1,3 +1,8 @@
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
+
 namespace Libraries
 {
     public static class ControlExtensions
@@ -28,9 +33,15 @@ namespace Libraries
                 panel = (Panel)trackbar.Controls.ToList().First(o => o.BackColor == Color.Magenta);
             }
 
-            panel.Size = new Size(10, RealFeel.RangeConv(value, 0, 100, 0, 198));
+            panel.Size = new Size(10, RangeConv(value, 0, 100, 0, 198));
 
             panel.Location = new Point(25, (trackbar.Size.Height - panel.Size.Height) - 13);
+        }
+
+        //Helper
+        public static int RangeConv(int input, int MinPossibleInput, int MaxPossibleInput, int MinConv, int MaxConv)
+        {
+            return (((input - MinPossibleInput) * (MaxConv - MinConv)) / (MaxPossibleInput - MinPossibleInput)) + MinConv;
         }
     }
 }
